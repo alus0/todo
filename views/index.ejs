@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Uygulaması</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+    .btn-completed {
+        background-color: #c8ffda;
+        color: #222;
+        border: none;
+    }
+    .btn-completed:hover {
+        background-color: #aee6c4;
+        color: #222;
+    }
+
+    .btn-notcompleted {
+        background-color: #b7b2ff;
+        color: #222;
+        border: none;
+    }
+    .btn-notcompleted:hover {
+        background-color: #9f9bd7;
+        color: #222;
+    }
+
+</style>
+    
+</head>
+<body style="margin:0; background: rgb(255, 255, 255) url('/images/kedy4.jpg') center/cover no-repeat; min-height: 100vh;">
+    <div class="container" >
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div>
+                    <div class="card-body">
+                        <!-- Content (Başlık, form ve liste) will be rendered below -->
+                         <div class="row justify-content-center mt-5 mb-4">
+                            <div  class="col-md-6 text-center" >
+                                <h1 style="color: rgb(255, 157, 190);">Yapılacaklar Listesi</h1>
+                                <form action="/add" method="POST" class="d-flex justify-content-center mt-3">
+                                <input type="text" name="task" class="form-control me-2" placeholder="..." required style="max-width: 150px;min-width: 150px; background-color: rgb(255, 157, 190);">
+                                <button type="submit" class="btn btn-completed rounded-pill px-4" >Ekle</button>
+                                </form>
+                            </div>
+                         </div>
+                         <div class="d-flex justify-content-center mb-4">
+                          <ul class="list-unstyled">
+                                <% todoItems.forEach((item, index) => { %>
+                                    <li class="d-flex justify-content-center mb-4">
+                                        <div class="d-flex align-items-center" style="max-width: 700px; width: 100%;">
+                                            <!-- Task Card -->
+                                            <div class="card flex-grow-1" style="background-color: #ffe0ef; min-width: 150px; max-width: 150px;">
+                                                <div class="card-body py-2 text-center">
+                                                    <%= item.text %>
+                                                </div>
+                                            </div>
+                                            <!-- Buttons -->
+                                            <div class="ms-3 d-flex">
+                                                <button title="button" onclick="toggleTask(<%= index %>, this)" 
+                                                    class="btn <%= item.completed ? 'btn-completed' : 'btn-notcompleted' %> rounded-pill px-3 me-2" 
+                                                    style="min-width: 100px;">
+                                                    <%= item.completed ? 'Yaptım' : 'Yapılacak' %>
+                                                </button>
+                                                <form action="/delete/<%= index %>" method="POST">
+                                                    <button class="btn btn-danger rounded-pill px-3" type="submit">Sil</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                <% }) %>
+                                
+                            </ul>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+     
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+            function toggleTask(index, buton) {
+    fetch(`/completed/${index}`, { method: 'POST' })
+    .then(response => response.json())  // JSON bekliyoruz
+   
+    .then(data => {
+        if (data.completed) {
+            buton.innerText = 'Yaptım';  
+            buton.classList.remove('btn-notcompleted');
+            buton.classList.add('btn-completed');
+        } else {
+            buton.innerText = 'Yapılacak';
+            buton.classList.remove('btn-completed');
+            buton.classList.add('btn-notcompleted');
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+
+    </script>
+    
+</body>
+</html>
+

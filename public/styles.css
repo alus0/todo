@@ -1,0 +1,45 @@
+/*
+.container{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffdcec;
+    box-shadow: 0 0 10px rgba(181, 240, 204, 0.1);
+    border-radius: 8px;
+}
+
+ul {
+    list-style: none; /* Remove default list styling 
+    padding: 0;
+}
+
+ul li {
+    background: #cafff1;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+ul li button {
+    background: #ff6b6b;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+ul li button:hover {
+    background: #ff4c4c;
+}   
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+}   
+
+*/
